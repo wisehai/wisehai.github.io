@@ -1,1 +1,1 @@
--[随笔](xxx)
+-[从get笔记回归flomo](personDaily/get2flomo.md)
