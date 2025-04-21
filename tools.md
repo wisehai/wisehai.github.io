@@ -12,6 +12,7 @@
 - [Ubuntu24.04](#ubuntu2404)
   - [输入工具: Vim](#输入工具-vim)
   - [搜索指令: ag](#搜索指令-ag)
+  - [自建AI工具： ai](#自建ai工具-ai)
 - [Win11](#win11)
   - [搜索文件: Everything](#搜索文件-everything)
   - [截图工具: PinPin](#截图工具-pinpin)
@@ -58,6 +59,13 @@
 ## Ubuntu24.04
 > Linux系统，使用更自由，免费
 > 从ibus切换Fcitx5,词库更全
+技巧：系统安装时选中文，后面可改英文显示
+如果选择英文安装，后面需要如下安装Fcitx5
+```
+sudo apt install fcitx5 \
+fcitx5-chinese-addons \
+fcitx5-pinyin
+```
 
 ### 输入工具: Vim
 > 简洁，手不离键盘
