@@ -57,6 +57,7 @@
 
 ## Ubuntu24.04
 > Linux系统，使用更自由，免费
+> 从ibus切换Fcitx5,词库更全
 
 ### 输入工具: Vim
 > 简洁，手不离键盘
@@ -65,6 +66,9 @@
 
 ### 搜索指令: ag
 > 快速
+
+### 自建AI工具： [ai](https://github.com/wisehai/ai_helper)
+> 在命令行直接使用ai
 
 ## Win11
 ### 搜索文件: [Everything](https://www.voidtools.com/zh-cn/)
