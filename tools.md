@@ -60,6 +60,7 @@ sudo apt install gnome-shell-extension-manager
 
 ## Ubuntu24.04
 > Linux系统，使用更自由，免费
+> 使用keyd进行键盘重映射，如Esc与Caps Lock的互换
 > 从ibus切换Fcitx5,词库更全
 技巧：系统安装时选中文，后面可改英文显示
 如果选择英文安装，后面需要如下安装Fcitx5
