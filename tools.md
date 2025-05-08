@@ -17,7 +17,6 @@
   - [搜索文件: Everything](#搜索文件-everything)
   - [截图工具: PinPin](#截图工具-pinpin)
   - [搜索文件内容： FileLocator Lite](#搜索文件内容-filelocator-lite)
-  - [快捷增强: PowerToys](#快捷增强-powertoys)
 
 ## 多平台兼容工具
 ### 浏览器： [Edge](https://www.microsoft.com/en-us/edge/download?form=MA13RE&msockid=0e796690608765240a07735f61476431) 
@@ -42,7 +41,10 @@
 
 ### 翻译工具： 欧路辞典
 > OCR，第三方辞典-推荐科林斯
-> Linux上可用goldendict替代，也能加载第三方辞典
+> Linux上可用extension manager - happy appy hotkey 快速启动
+```
+sudo apt install gnome-shell-extension-manager
+```
 
 ### 版本控制： Git
 > 方便看到变化，远离v1 v2 v3...
@@ -89,7 +91,3 @@ fcitx5-pinyin
 ### 搜索文件内容： FileLocator Lite
 > 快速文本内容搜索
 
-### 快捷增强: [PowerToys](https://learn.microsoft.com/en-us/windows/powertoys/install)
-> 官方工具，快捷键重映射
-
-[使用技巧](tools/PowerToys/PowerToys.md)
