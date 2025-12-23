@@ -1,1 +1,0 @@
-- [Error007b](ComputerProblems/Error007b/Error007b.md)

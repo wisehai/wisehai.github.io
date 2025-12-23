@@ -1,1 +1,0 @@
--[从get笔记回归flomo](personDaily/get2flomo.md)
