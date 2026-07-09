@@ -41,6 +41,41 @@
 
   a { color: var(--brass); text-decoration-thickness: 1px; text-underline-offset: 3px; }
   a:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+  button:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+
+  .language-switch {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    padding: 3px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(251, 249, 245, 0.88);
+    box-shadow: 0 8px 24px rgba(43, 36, 28, 0.08);
+    backdrop-filter: blur(12px);
+  }
+
+  .language-switch button {
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 500;
+    line-height: 1;
+    min-width: 44px;
+    padding: 8px 12px;
+  }
+
+  .language-switch button[aria-pressed="true"] {
+    background: var(--brass);
+    color: var(--paper);
+  }
 
   .wrap {
     max-width: 640px;
@@ -307,6 +342,16 @@
   footer .links a:hover { color: var(--brass); }
 
   @media (max-width: 480px) {
+    .language-switch {
+      top: 14px;
+      right: 14px;
+    }
+
+    .language-switch button {
+      min-width: 40px;
+      padding: 7px 10px;
+    }
+
     header.hero { padding: 64px 0 48px; }
     footer { flex-direction: column; align-items: flex-start; }
     footer .links a:first-child { margin-left: 0; }
@@ -315,77 +360,82 @@
 </head>
 <body>
 
+<nav class="language-switch" aria-label="Language">
+  <button type="button" data-lang="zh" aria-pressed="true">中文</button>
+  <button type="button" data-lang="en" aria-pressed="false">EN</button>
+</nav>
+
 <div class="wrap">
 
   <header class="hero">
-    <div class="eyebrow">wisehai · 折腾笔记</div>
-    <h1>折腾，<em>是为了想明白。</em></h1>
-    <p class="lede">断断续续写了十年博客，建了又停，停了又建。这次不追求把它做大，只想留一个够简单、能一直用下去的地方。</p>
+    <div class="eyebrow" data-i18n="hero.eyebrow">wisehai · 折腾笔记</div>
+    <h1 data-i18n="hero.title">折腾，<em>是为了想明白。</em></h1>
+    <p class="lede" data-i18n="hero.lede">断断续续写了十年博客，建了又停，停了又建。这次不追求把它做大，只想留一个够简单、能一直用下去的地方。</p>
 
     <div class="currently">
-      <span><b>在做</b> · 手碟 Web App 打磨中</span>
-      <span><b>在学</b> · 英语 1000 小时练习</span>
-      <span><b>在用</b> · 一个不需要构建的主页</span>
+      <span data-i18n="currently.doing"><b>在做</b> · 手碟 Web App 打磨中</span>
+      <span data-i18n="currently.learning"><b>在学</b> · 英语 1000 小时练习</span>
+      <span data-i18n="currently.using"><b>在用</b> · 一个不需要构建的主页</span>
     </div>
   </header>
 
   <section class="featured">
-    <div class="section-label">置顶</div>
+    <div class="section-label" data-i18n="featured.label">置顶</div>
     <div class="featured-card">
       <div class="featured-top">
-        <h2 class="featured-name">手碟 Handpan Player</h2>
-        <span class="project-badge">打磨中</span>
+        <h2 class="featured-name" data-i18n="featured.name">手碟 Handpan Player</h2>
+        <span class="project-badge" data-i18n="featured.badge">打磨中</span>
       </div>
-      <p class="featured-desc"> 电子手碟：支持从 PDF 识谱、文本乐谱可直接编辑、支持存谱和下载，支持变速播放、节拍器。可离线安装成 App 使用，手机端支持多指和弦。 </p>
+      <p class="featured-desc" data-i18n="featured.desc"> 电子手碟：支持从 PDF 识谱、文本乐谱可直接编辑、支持存谱和下载，支持变速播放、节拍器。可离线安装成 App 使用，手机端支持多指和弦。 </p>
       <div class="featured-actions">
-        <a class="btn-primary" href="https://www.wisehai.com/handpan-project/" target="_blank" rel="noopener">试用 →</a>
-        <a class="project-link" href="https://github.com/wisehai/handpan-project" target="_blank" rel="noopener">查看仓库</a>
+        <a class="btn-primary" href="https://www.wisehai.com/handpan-project/" target="_blank" rel="noopener" data-i18n="featured.try">试用 →</a>
+        <a class="project-link" href="https://github.com/wisehai/handpan-project" target="_blank" rel="noopener" data-i18n="featured.repo">查看仓库</a>
       </div>
     </div>
   </section>
 
   <section class="about">
-    <div class="section-label">关于</div>
-    <h2>反复折腾的这些年</h2>
-    <p>十年前还在读书的时候，就想有个自己的网站——那样布局和内容都能自己说了算。买过服务器和域名，用 WordPress 模板搭起过一个博客，写写停停，最后总觉得内容像是寄居在别人的模板里，编辑器也用得别扭，渐渐就放下了。</p>
-    <p>后来又用 MkDocs、Hugo 各试过一遍，学会了 GitHub 的用法，也折腾出不少细节（评论功能、主题配置），但每次都卡在同一个地方：构建、部署、维护，步骤一多，就不太想更新了。</p>
-    <p>这次想明白了一件事：网站值不值得留下，跟工具复杂不复杂没关系。所以这一版故意做得很简单——没有博客系统，没有构建步骤，只留一个主页，记录正在做的事。</p>
+    <div class="section-label" data-i18n="about.label">关于</div>
+    <h2 data-i18n="about.title">反复折腾的这些年</h2>
+    <p data-i18n="about.p1">十年前还在读书的时候，就想有个自己的网站——那样布局和内容都能自己说了算。买过服务器和域名，用 WordPress 模板搭起过一个博客，写写停停，最后总觉得内容像是寄居在别人的模板里，编辑器也用得别扭，渐渐就放下了。</p>
+    <p data-i18n="about.p2">后来又用 MkDocs、Hugo 各试过一遍，学会了 GitHub 的用法，也折腾出不少细节（评论功能、主题配置），但每次都卡在同一个地方：构建、部署、维护，步骤一多，就不太想更新了。</p>
+    <p data-i18n="about.p3">这次想明白了一件事：网站值不值得留下，跟工具复杂不复杂没关系。所以这一版故意做得很简单——没有博客系统，没有构建步骤，只留一个主页，记录正在做的事。</p>
 
     <div class="timeline">
       <div class="timeline-row">
-        <div class="timeline-year">早年</div>
+        <div class="timeline-year" data-i18n="timeline.early.year">早年</div>
         <div class="timeline-dot-col"><div class="timeline-dot"></div></div>
-        <div class="timeline-text">服务器 + 域名 + WordPress，断续写了一阵</div>
+        <div class="timeline-text" data-i18n="timeline.early.text">服务器 + 域名 + WordPress，断续写了一阵</div>
       </div>
       <div class="timeline-row">
-        <div class="timeline-year">前年</div>
+        <div class="timeline-year" data-i18n="timeline.mkdocs.year">前年</div>
         <div class="timeline-dot-col"><div class="timeline-dot"></div></div>
-        <div class="timeline-text">MkDocs 搭博客，加了评论功能，后来停更</div>
+        <div class="timeline-text" data-i18n="timeline.mkdocs.text">MkDocs 搭博客，加了评论功能，后来停更</div>
       </div>
       <div class="timeline-row">
-        <div class="timeline-year">去年</div>
+        <div class="timeline-year" data-i18n="timeline.hugo.year">去年</div>
         <div class="timeline-dot-col"><div class="timeline-dot"></div></div>
-        <div class="timeline-text">换 Hugo 重来一次，还是卡在构建和部署上</div>
+        <div class="timeline-text" data-i18n="timeline.hugo.text">换 Hugo 重来一次，还是卡在构建和部署上</div>
       </div>
       <div class="timeline-row current">
-        <div class="timeline-year">现在</div>
+        <div class="timeline-year" data-i18n="timeline.now.year">现在</div>
         <div class="timeline-dot-col"><div class="timeline-dot"></div></div>
-        <div class="timeline-text">纯静态主页，改完直接推送，不再折腾工具本身</div>
+        <div class="timeline-text" data-i18n="timeline.now.text">纯静态主页，改完直接推送，不再折腾工具本身</div>
       </div>
     </div>
   </section>
 
   <section class="projects">
-    <div class="section-label">其他项目</div>
-    <h2>手上的小项目</h2>
+    <div class="section-label" data-i18n="projects.label">其他项目</div>
+    <h2 data-i18n="projects.title">手上的小项目</h2>
 
     <div class="project">
       <div class="project-top">
         <h3 class="project-name"><a href="https://github.com/wisehai/get2flomo" target="_blank" rel="noopener">get2flomo</a></h3>
         <span class="project-badge">★ 1</span>
       </div>
-      <p class="project-desc">把「得到」里的笔记批量搬到 flomo 的小工具，解决换笔记软件时最烦的迁移问题。</p>
-      <a class="project-link" href="https://github.com/wisehai/get2flomo" target="_blank" rel="noopener">查看仓库 →</a>
+      <p class="project-desc" data-i18n="projects.get2flomo.desc">把「得到」里的笔记批量搬到 flomo 的小工具，解决换笔记软件时最烦的迁移问题。</p>
+      <a class="project-link" href="https://github.com/wisehai/get2flomo" target="_blank" rel="noopener" data-i18n="projects.repo">查看仓库 →</a>
     </div>
   </section>
 
@@ -397,6 +447,120 @@
   </footer>
 
 </div>
+
+<script>
+  const translations = {
+    zh: {
+      metaDescription: "一个折腾者的学习与实践记录。",
+      "hero.eyebrow": "wisehai · 折腾笔记",
+      "hero.title": "折腾，<em>是为了想明白。</em>",
+      "hero.lede": "断断续续写了十年博客，建了又停，停了又建。这次不追求把它做大，只想留一个够简单、能一直用下去的地方。",
+      "currently.doing": "<b>在做</b> · 手碟 Web App 打磨中",
+      "currently.learning": "<b>在学</b> · 英语 1000 小时练习",
+      "currently.using": "<b>在用</b> · 一个不需要构建的主页",
+      "featured.label": "置顶",
+      "featured.name": "手碟 Handpan Player",
+      "featured.badge": "打磨中",
+      "featured.desc": "电子手碟：支持从 PDF 识谱、文本乐谱可直接编辑、支持存谱和下载，支持变速播放、节拍器。可离线安装成 App 使用，手机端支持多指和弦。",
+      "featured.try": "试用 →",
+      "featured.repo": "查看仓库",
+      "about.label": "关于",
+      "about.title": "反复折腾的这些年",
+      "about.p1": "十年前还在读书的时候，就想有个自己的网站——那样布局和内容都能自己说了算。买过服务器和域名，用 WordPress 模板搭起过一个博客，写写停停，最后总觉得内容像是寄居在别人的模板里，编辑器也用得别扭，渐渐就放下了。",
+      "about.p2": "后来又用 MkDocs、Hugo 各试过一遍，学会了 GitHub 的用法，也折腾出不少细节（评论功能、主题配置），但每次都卡在同一个地方：构建、部署、维护，步骤一多，就不太想更新了。",
+      "about.p3": "这次想明白了一件事：网站值不值得留下，跟工具复杂不复杂没关系。所以这一版故意做得很简单——没有博客系统，没有构建步骤，只留一个主页，记录正在做的事。",
+      "timeline.early.year": "早年",
+      "timeline.early.text": "服务器 + 域名 + WordPress，断续写了一阵",
+      "timeline.mkdocs.year": "前年",
+      "timeline.mkdocs.text": "MkDocs 搭博客，加了评论功能，后来停更",
+      "timeline.hugo.year": "去年",
+      "timeline.hugo.text": "换 Hugo 重来一次，还是卡在构建和部署上",
+      "timeline.now.year": "现在",
+      "timeline.now.text": "纯静态主页，改完直接推送，不再折腾工具本身",
+      "projects.label": "其他项目",
+      "projects.title": "手上的小项目",
+      "projects.get2flomo.desc": "把「得到」里的笔记批量搬到 flomo 的小工具，解决换笔记软件时最烦的迁移问题。",
+      "projects.repo": "查看仓库 →"
+    },
+    en: {
+      metaDescription: "Notes on learning, building, and keeping things simple.",
+      "hero.eyebrow": "wisehai · Notes from tinkering",
+      "hero.title": "I keep tinkering <em>to think more clearly.</em>",
+      "hero.lede": "I have been writing blogs on and off for ten years: building, stopping, and starting again. This time I am not trying to make it big. I just want a place simple enough to keep using.",
+      "currently.doing": "<b>Building</b> · polishing a Handpan Web App",
+      "currently.learning": "<b>Learning</b> · 1,000 hours of English practice",
+      "currently.using": "<b>Using</b> · a homepage with no build step",
+      "featured.label": "Featured",
+      "featured.name": "Handpan Player",
+      "featured.badge": "In progress",
+      "featured.desc": "A digital handpan: read scores from PDFs, edit text-based scores directly, save and download scores, change playback speed, and use a metronome. It can be installed offline as an app, with multi-finger chords on mobile.",
+      "featured.try": "Try it →",
+      "featured.repo": "View repository",
+      "about.label": "About",
+      "about.title": "Years of starting over",
+      "about.p1": "When I was still in school ten years ago, I wanted a website of my own, somewhere the layout and content were both under my control. I bought servers and domains, built a WordPress blog from a template, and wrote on and off. In the end, the content still felt like it was living inside someone else's template, and the editor never felt quite right, so I gradually left it alone.",
+      "about.p2": "Later I tried MkDocs and Hugo, learned my way around GitHub, and worked through details like comments and theme configuration. But every attempt got stuck in the same place: building, deploying, and maintaining. Once the steps piled up, I stopped wanting to update it.",
+      "about.p3": "This time I figured something out: whether a website is worth keeping has little to do with how complex the tools are. So this version is deliberately simple: no blog system, no build process, just a homepage for the things I am working on.",
+      "timeline.early.year": "Early days",
+      "timeline.early.text": "Server + domain + WordPress, with occasional writing",
+      "timeline.mkdocs.year": "Two years ago",
+      "timeline.mkdocs.text": "Built a blog with MkDocs, added comments, then stopped updating",
+      "timeline.hugo.year": "Last year",
+      "timeline.hugo.text": "Started over with Hugo, but still got stuck on build and deployment",
+      "timeline.now.year": "Now",
+      "timeline.now.text": "A plain static homepage: edit, push, and stop tinkering with the tools themselves",
+      "projects.label": "Other projects",
+      "projects.title": "Small projects on hand",
+      "projects.get2flomo.desc": "A small tool for moving notes from Dedao to flomo in batches, solving the most annoying part of switching note apps.",
+      "projects.repo": "View repository →"
+    }
+  };
+
+  const languageButtons = document.querySelectorAll("[data-lang]");
+  const descriptionMeta = document.querySelector('meta[name="description"]');
+
+  function getSavedLanguage() {
+    try {
+      return localStorage.getItem("wisehai-language");
+    } catch {
+      return null;
+    }
+  }
+
+  function saveLanguage(language) {
+    try {
+      localStorage.setItem("wisehai-language", language);
+    } catch {
+      /* Language switching should still work when storage is unavailable. */
+    }
+  }
+
+  function setLanguage(language) {
+    const dictionary = translations[language] || translations.zh;
+
+    document.documentElement.lang = language === "en" ? "en" : "zh-CN";
+    document.title = language === "en" ? "wisehai" : "wisehai";
+    if (descriptionMeta) descriptionMeta.content = dictionary.metaDescription;
+
+    document.querySelectorAll("[data-i18n]").forEach((element) => {
+      const key = element.dataset.i18n;
+      if (dictionary[key]) element.innerHTML = dictionary[key];
+    });
+
+    languageButtons.forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.lang === language));
+    });
+
+    saveLanguage(language);
+  }
+
+  languageButtons.forEach((button) => {
+    button.addEventListener("click", () => setLanguage(button.dataset.lang));
+  });
+
+  const savedLanguage = getSavedLanguage();
+  setLanguage(savedLanguage === "en" ? "en" : "zh");
+</script>
 
 </body>
 </html>
