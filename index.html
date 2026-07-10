@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>wisehai</title>
 <meta name="description" content="一个折腾者的学习与实践记录。">
+<meta name="theme-color" content="#FBF9F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1C1813" media="(prefers-color-scheme: dark)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -17,8 +19,55 @@
     --line: #E5DED2;
     --brass: #9C6B2E;
     --brass-soft: #C79A55;
+    --switch-bg: rgba(251, 249, 245, 0.88);
+    --switch-shadow: rgba(43, 36, 28, 0.08);
+    --featured-bg: rgba(156, 107, 46, 0.05);
+    --brass-ring: rgba(156, 107, 46, 0.18);
     --font-display: 'Newsreader', serif;
     --font-body: 'Inter', sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #1C1813;
+      --ink: #EAE2D4;
+      --ink-soft: #A79C89;
+      --line: #3A3226;
+      --brass: #D9AE6C;
+      --brass-soft: #B4813E;
+      --switch-bg: rgba(28, 24, 19, 0.85);
+      --switch-shadow: rgba(0, 0, 0, 0.35);
+      --featured-bg: rgba(217, 174, 108, 0.08);
+      --brass-ring: rgba(217, 174, 108, 0.22);
+    }
+  }
+
+  /* manual theme override — wins over the media query above because
+     an attribute selector on :root has higher specificity */
+  :root[data-theme="light"] {
+    --paper: #FBF9F5;
+    --ink: #2B241C;
+    --ink-soft: #6B6255;
+    --line: #E5DED2;
+    --brass: #9C6B2E;
+    --brass-soft: #C79A55;
+    --switch-bg: rgba(251, 249, 245, 0.88);
+    --switch-shadow: rgba(43, 36, 28, 0.08);
+    --featured-bg: rgba(156, 107, 46, 0.05);
+    --brass-ring: rgba(156, 107, 46, 0.18);
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #1C1813;
+    --ink: #EAE2D4;
+    --ink-soft: #A79C89;
+    --line: #3A3226;
+    --brass: #D9AE6C;
+    --brass-soft: #B4813E;
+    --switch-bg: rgba(28, 24, 19, 0.85);
+    --switch-shadow: rgba(0, 0, 0, 0.35);
+    --featured-bg: rgba(217, 174, 108, 0.08);
+    --brass-ring: rgba(217, 174, 108, 0.22);
   }
 
   * { box-sizing: border-box; }
@@ -37,31 +86,59 @@
     font-family: var(--font-body);
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   a { color: var(--brass); text-decoration-thickness: 1px; text-underline-offset: 3px; }
   a:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
   button:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
 
-  .language-switch {
-    position: fixed;
-    top: 24px;
-    right: 24px;
-    z-index: 10;
+  .top-controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    padding-top: 28px;
+  }
+
+  .theme-switch {
     display: inline-flex;
     align-items: center;
     padding: 3px;
     border: 1px solid var(--line);
     border-radius: 999px;
-    background: rgba(251, 249, 245, 0.88);
-    box-shadow: 0 8px 24px rgba(43, 36, 28, 0.08);
+    background: var(--switch-bg);
+    box-shadow: 0 8px 24px var(--switch-shadow);
     backdrop-filter: blur(12px);
   }
 
-  .language-switch button {
+  .theme-switch button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
     border: 0;
     border-radius: 999px;
     background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .theme-switch button svg { width: 16px; height: 16px; }
+
+  .theme-switch button[aria-pressed="true"] {
+    background: var(--brass);
+    color: var(--paper);
+  }
+
+  .lang-toggle {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--switch-bg);
+    box-shadow: 0 8px 24px var(--switch-shadow);
+    backdrop-filter: blur(12px);
     color: var(--ink-soft);
     cursor: pointer;
     font: inherit;
@@ -69,13 +146,10 @@
     font-weight: 500;
     line-height: 1;
     min-width: 44px;
-    padding: 8px 12px;
+    padding: 10px 14px;
   }
 
-  .language-switch button[aria-pressed="true"] {
-    background: var(--brass);
-    color: var(--paper);
-  }
+  .lang-toggle:hover { color: var(--brass); }
 
   .wrap {
     max-width: 640px;
@@ -86,7 +160,7 @@
   /* -------- hero -------- */
 
   header.hero {
-    padding: 96px 0 64px;
+    padding: 40px 0 64px;
   }
 
   .eyebrow {
@@ -217,7 +291,7 @@
 
   .timeline-row.current .timeline-dot {
     background: var(--brass);
-    box-shadow: 0 0 0 3px rgba(156, 107, 46, 0.18);
+    box-shadow: 0 0 0 3px var(--brass-ring);
   }
 
   .timeline-text { font-size: 0.95rem; }
@@ -278,7 +352,7 @@
     border: 1px solid var(--brass-soft);
     border-left: 4px solid var(--brass);
     border-radius: 6px;
-    background: rgba(156, 107, 46, 0.05);
+    background: var(--featured-bg);
   }
 
   .featured-top {
@@ -342,17 +416,7 @@
   footer .links a:hover { color: var(--brass); }
 
   @media (max-width: 480px) {
-    .language-switch {
-      top: 14px;
-      right: 14px;
-    }
-
-    .language-switch button {
-      min-width: 40px;
-      padding: 7px 10px;
-    }
-
-    header.hero { padding: 64px 0 48px; }
+    header.hero { padding: 32px 0 48px; }
     footer { flex-direction: column; align-items: flex-start; }
     footer .links a:first-child { margin-left: 0; }
   }
@@ -360,12 +424,22 @@
 </head>
 <body>
 
-<nav class="language-switch" aria-label="Language">
-  <button type="button" data-lang="zh" aria-pressed="true">中文</button>
-  <button type="button" data-lang="en" aria-pressed="false">EN</button>
-</nav>
-
 <div class="wrap">
+
+  <div class="top-controls">
+    <div class="theme-switch" role="group" aria-label="主题">
+      <button type="button" data-theme-choice="auto" aria-pressed="true" title="跟随系统" aria-label="跟随系统">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 18v3"></path></svg>
+      </button>
+      <button type="button" data-theme-choice="light" aria-pressed="false" title="浅色" aria-label="浅色模式">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>
+      </button>
+      <button type="button" data-theme-choice="dark" aria-pressed="false" title="深色" aria-label="深色模式">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+    </div>
+    <button type="button" id="lang-toggle" class="lang-toggle" aria-label="Switch to English">EN</button>
+  </div>
 
   <header class="hero">
     <div class="eyebrow" data-i18n="hero.eyebrow">wisehai · 折腾笔记</div>
@@ -529,7 +603,7 @@
     }
   };
 
-  const languageButtons = document.querySelectorAll("[data-lang]");
+  const langToggleButton = document.getElementById("lang-toggle");
   const descriptionMeta = document.querySelector('meta[name="description"]');
 
   function getSavedLanguage() {
@@ -560,19 +634,62 @@
       if (dictionary[key]) element.innerHTML = dictionary[key];
     });
 
-    languageButtons.forEach((button) => {
-      button.setAttribute("aria-pressed", String(button.dataset.lang === language));
-    });
+    if (langToggleButton) {
+      langToggleButton.textContent = language === "en" ? "中文" : "EN";
+      langToggleButton.setAttribute("aria-label", language === "en" ? "切换到中文" : "Switch to English");
+    }
 
     saveLanguage(language);
   }
 
-  languageButtons.forEach((button) => {
-    button.addEventListener("click", () => setLanguage(button.dataset.lang));
-  });
+  if (langToggleButton) {
+    langToggleButton.addEventListener("click", () => {
+      const current = document.documentElement.lang === "en" ? "en" : "zh";
+      setLanguage(current === "en" ? "zh" : "en");
+    });
+  }
 
   const savedLanguage = getSavedLanguage();
   setLanguage(savedLanguage === "en" ? "en" : "zh");
+
+  const THEME_KEY = "wisehai-theme";
+  const themeButtons = document.querySelectorAll("[data-theme-choice]");
+
+  function getSavedTheme() {
+    try {
+      return localStorage.getItem(THEME_KEY);
+    } catch {
+      return null;
+    }
+  }
+
+  function saveTheme(theme) {
+    try {
+      localStorage.setItem(THEME_KEY, theme);
+    } catch {
+      /* Theme switching should still work when storage is unavailable. */
+    }
+  }
+
+  function applyTheme(theme) {
+    if (theme === "light" || theme === "dark") {
+      document.documentElement.setAttribute("data-theme", theme);
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+
+    themeButtons.forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.themeChoice === theme));
+    });
+
+    saveTheme(theme);
+  }
+
+  themeButtons.forEach((button) => {
+    button.addEventListener("click", () => applyTheme(button.dataset.themeChoice));
+  });
+
+  applyTheme(getSavedTheme() || "auto");
 </script>
 
 </body>
