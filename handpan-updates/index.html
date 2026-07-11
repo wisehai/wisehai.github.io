@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-source-repo="wisehai/handpan-project" data-source-head="fee63ed">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>悟碟 WisePan · 项目进展</title>
+<meta name="description" content="悟碟 WisePan 的重大功能与体验更新记录。">
+<meta name="theme-color" content="#FBF9F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1C1813" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBF9F5; --ink: #2B241C; --ink-soft: #6B6255; --line: #E5DED2;
+    --brass: #9C6B2E; --brass-soft: #C79A55; --switch-bg: rgba(251,249,245,.88);
+    --switch-shadow: rgba(43,36,28,.08); --brass-ring: rgba(156,107,46,.18);
+    --font-display: 'Newsreader', serif; --font-body: 'Inter', sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper:#1C1813; --ink:#EAE2D4; --ink-soft:#A79C89; --line:#3A3226; --brass:#D9AE6C; --brass-soft:#B4813E; --switch-bg:rgba(28,24,19,.85); --switch-shadow:rgba(0,0,0,.35); --brass-ring:rgba(217,174,108,.22); }
+  }
+  :root[data-theme="light"] { --paper:#FBF9F5; --ink:#2B241C; --ink-soft:#6B6255; --line:#E5DED2; --brass:#9C6B2E; --brass-soft:#C79A55; --switch-bg:rgba(251,249,245,.88); --switch-shadow:rgba(43,36,28,.08); --brass-ring:rgba(156,107,46,.18); }
+  :root[data-theme="dark"] { --paper:#1C1813; --ink:#EAE2D4; --ink-soft:#A79C89; --line:#3A3226; --brass:#D9AE6C; --brass-soft:#B4813E; --switch-bg:rgba(28,24,19,.85); --switch-shadow:rgba(0,0,0,.35); --brass-ring:rgba(217,174,108,.22); }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:var(--font-body); line-height:1.7; -webkit-font-smoothing:antialiased; transition:background-color .2s ease,color .2s ease; }
+  a { color:var(--brass); text-decoration-thickness:1px; text-underline-offset:3px; }
+  a:focus-visible, button:focus-visible { outline:2px solid var(--brass); outline-offset:3px; }
+  .wrap { max-width:640px; margin:0 auto; padding:0 24px; }
+  .topbar { display:flex; justify-content:space-between; align-items:center; gap:16px; padding-top:28px; }
+  .back { color:var(--ink-soft); font-size:.88rem; text-decoration:none; }
+  .back:hover { color:var(--brass); }
+  .controls { display:flex; align-items:center; gap:10px; }
+  .theme-switch { display:inline-flex; padding:3px; border:1px solid var(--line); border-radius:999px; background:var(--switch-bg); box-shadow:0 8px 24px var(--switch-shadow); }
+  .theme-switch button { width:32px; height:32px; border:0; border-radius:999px; background:transparent; color:var(--ink-soft); cursor:pointer; font:inherit; font-size:.72rem; }
+  .theme-switch button[aria-pressed="true"] { background:var(--brass); color:var(--paper); }
+  .lang-toggle { min-width:44px; padding:10px 14px; border:1px solid var(--line); border-radius:999px; background:var(--switch-bg); color:var(--ink-soft); cursor:pointer; font:500 .78rem/1 var(--font-body); box-shadow:0 8px 24px var(--switch-shadow); }
+  header { padding:64px 0 54px; }
+  .eyebrow { margin-bottom:20px; color:var(--brass); font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; }
+  h1 { margin:0 0 20px; font:500 clamp(2.4rem,6vw,3.4rem)/1.15 var(--font-display); letter-spacing:-.01em; }
+  .lede { max-width:48ch; margin:0; color:var(--ink-soft); font-size:1.02rem; }
+  .actions { display:flex; flex-wrap:wrap; gap:18px; margin-top:26px; font-size:.88rem; }
+  .try { padding:7px 17px; border-radius:999px; background:var(--brass); color:var(--paper); text-decoration:none; font-weight:500; }
+  main { padding:50px 0 64px; border-top:1px solid var(--line); }
+  .timeline { position:relative; }
+  .update { display:grid; grid-template-columns:88px 20px 1fr; align-items:start; }
+  .date { padding-top:4px; color:var(--ink-soft); font:italic .94rem var(--font-display); }
+  .rail { position:relative; display:flex; align-self:stretch; justify-content:center; }
+  .rail::after { content:""; position:absolute; top:11px; bottom:0; width:1px; background:var(--line); }
+  .dot { position:relative; z-index:1; width:9px; height:9px; margin-top:8px; border-radius:50%; background:var(--brass); box-shadow:0 0 0 3px var(--brass-ring); }
+  .update-content { padding:0 0 44px 14px; }
+  .update:last-child .rail::after { display:none; }
+  .update:last-child .update-content { padding-bottom:0; }
+  h2 { margin:0 0 9px; font:500 1.35rem/1.3 var(--font-display); }
+  .update-content p { margin:0; color:var(--ink-soft); font-size:.94rem; }
+  footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; padding:42px 0 70px; border-top:1px solid var(--line); color:var(--ink-soft); font-size:.84rem; }
+  @media (max-width:480px) { header { padding:48px 0 42px; } .update { grid-template-columns:70px 16px 1fr; } .update-content { padding-left:10px; } }
+  @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } * { transition-duration:.001ms!important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="back" href="/" data-i18n="back">← 返回主页</a>
+    <div class="controls">
+      <div class="theme-switch" role="group" aria-label="主题">
+        <button type="button" data-theme-choice="auto" aria-pressed="true" title="跟随系统">A</button>
+        <button type="button" data-theme-choice="light" aria-pressed="false" title="浅色">☀</button>
+        <button type="button" data-theme-choice="dark" aria-pressed="false" title="深色">☾</button>
+      </div>
+      <button type="button" id="lang-toggle" class="lang-toggle" aria-label="Switch to English">EN</button>
+    </div>
+  </div>
+
+  <header>
+    <div class="eyebrow" data-i18n="eyebrow">悟碟 · WisePan</div>
+    <h1 data-i18n="title">项目进展</h1>
+    <p class="lede" data-i18n="lede">记录那些真正改变演奏和使用体验的更新。这里不罗列每个修复，只留下值得记住的节点。</p>
+    <div class="actions">
+      <a class="try" href="https://www.wisehai.com/handpan-project/" data-i18n="try">试用悟碟 →</a>
+      <a href="https://github.com/wisehai/handpan-project" data-i18n="repo">查看仓库</a>
+    </div>
+  </header>
+
+  <main class="timeline">
+    <article class="update" data-source-commit="fee63ed">
+      <time class="date" datetime="2026-07-11">2026 · 07 · 11</time><div class="rail"><span class="dot"></span></div>
+      <div class="update-content"><h2 data-i18n="follow.title">演奏会自己“往下走”了</h2><p data-i18n="follow.text">新增麦克风跟谱模式。悟碟会辨认你弹奏的音，随着演奏自动跟踪乐谱位置，练习时不必腾出手翻页。</p></div>
+    </article>
+    <article class="update" data-source-commit="7614ef1">
+      <time class="date" datetime="2026-07-10">2026 · 07 · 10</time><div class="rail"><span class="dot"></span></div>
+      <div class="update-content"><h2 data-i18n="pan.title">12 音 D Kurd，从外观到音色重做</h2><p data-i18n="pan.text">手碟更新为 12 音 D Kurd 布局，加入更接近真实钢制手碟的视觉层次，同时根据实际乐器录音重新调整合成音色。</p></div>
+    </article>
+    <article class="update" data-source-commit="57720ee">
+      <time class="date" datetime="2026-07-08">2026 · 07 · 08</time><div class="rail"><span class="dot"></span></div>
+      <div class="update-content"><h2 data-i18n="offline.title">向真正的离线 App 迈进</h2><p data-i18n="offline.text">PDF 识谱所需的组件改为本地打包，没有网络也能导入乐谱；同时补齐 iPhone 应用发布所需的支持与隐私页面。</p></div>
+    </article>
+    <article class="update" data-source-commit="977db27">
+      <time class="date" datetime="2026-07-07">2026 · 07 · 07</time><div class="rail"><span class="dot"></span></div>
+      <div class="update-content"><h2 data-i18n="wisepan.title">“悟碟 / WisePan”诞生</h2><p data-i18n="wisepan.text">项目确定了新名字，并加入更适合专注演奏的沉浸模式。播放控制也合并为更直观的播放/暂停按钮。</p></div>
+    </article>
+    <article class="update" data-source-commit="8a3e938">
+      <time class="date" datetime="2026-07-05">2026 · 07 · 05</time><div class="rail"><span class="dot"></span></div>
+      <div class="update-content"><h2 data-i18n="app.title">从网页变成可安装的 App</h2><p data-i18n="app.text">加入 PWA 离线安装和 Android 应用打包支持，手机上可以像普通 App 一样打开和使用。</p></div>
+    </article>
+  </main>
+  <footer><span data-i18n="footer">只记录用户能感受到的重大变化</span><a href="/">www.wisehai.com</a></footer>
+</div>
+<script>
+  const translations = {
+    zh: { meta:"悟碟 WisePan 的重大功能与体验更新记录。", back:"← 返回主页", eyebrow:"悟碟 · WisePan", title:"项目进展", lede:"记录那些真正改变演奏和使用体验的更新。这里不罗列每个修复，只留下值得记住的节点。", try:"试用悟碟 →", repo:"查看仓库", commit:"查看对应提交 →", footer:"只记录用户能感受到的重大变化", "follow.title":"演奏会自己“往下走”了", "follow.text":"新增麦克风跟谱模式。悟碟会辨认你弹奏的音，随着演奏自动跟踪乐谱位置，练习时不必腾出手翻页。", "pan.title":"12 音 D Kurd，从外观到音色重做", "pan.text":"手碟更新为 12 音 D Kurd 布局，加入更接近真实钢制手碟的视觉层次，同时根据实际乐器录音重新调整合成音色。", "offline.title":"向真正的离线 App 迈进", "offline.text":"PDF 识谱所需的组件改为本地打包，没有网络也能导入乐谱；同时补齐 iPhone 应用发布所需的支持与隐私页面。", "wisepan.title":"“悟碟 / WisePan”诞生", "wisepan.text":"项目确定了新名字，并加入更适合专注演奏的沉浸模式。播放控制也合并为更直观的播放/暂停按钮。", "app.title":"从网页变成可安装的 App", "app.text":"加入 PWA 离线安装和 Android 应用打包支持，手机上可以像普通 App 一样打开和使用。" },
+    en: { meta:"Major feature and experience updates from WisePan.", back:"← Back home", eyebrow:"WisePan · Handpan", title:"Project updates", lede:"A record of the updates that genuinely change how WisePan feels to play and use. Routine fixes stay out; only the milestones remain.", try:"Try WisePan →", repo:"View repository", commit:"View commit →", footer:"Only the changes users can genuinely feel", "follow.title":"The score now moves with your playing", "follow.text":"Microphone-powered follow mode listens for the notes you play and tracks your position in the score automatically, so practice can keep flowing hands-free.", "pan.title":"A 12-note D Kurd, rebuilt in look and sound", "pan.text":"The instrument moved to a 12-note D Kurd layout, gained a more realistic layered-steel appearance, and had its synthesized timbre retuned from recordings of the owner's physical pan.", "offline.title":"A meaningful step toward a true offline app", "offline.text":"PDF recognition is now bundled locally, so scores can be imported without a network connection. Support and privacy pages also prepare the iPhone app for distribution.", "wisepan.title":"WisePan finds its name", "wisepan.text":"The project settled on the WisePan name and gained an immersive mode for focused playing. Playback was also simplified into one intuitive play/pause control.", "app.title":"From a web page to an installable app", "app.text":"PWA offline installation and Android packaging made it possible to open and use WisePan like a regular app on a phone." }
+  };
+  const languageButton=document.getElementById("lang-toggle"), descriptionMeta=document.querySelector('meta[name="description"]');
+  const getStored=(key)=>{try{return localStorage.getItem(key)}catch{return null}};
+  const setStored=(key,value)=>{try{localStorage.setItem(key,value)}catch{}};
+  function setLanguage(language){const lang=language==="en"?"en":"zh",dictionary=translations[lang];document.documentElement.lang=lang==="en"?"en":"zh-CN";document.title=lang==="en"?"WisePan · Project updates":"悟碟 WisePan · 项目进展";descriptionMeta.content=dictionary.meta;document.querySelectorAll("[data-i18n]").forEach(element=>{if(dictionary[element.dataset.i18n])element.textContent=dictionary[element.dataset.i18n]});languageButton.textContent=lang==="en"?"中文":"EN";languageButton.setAttribute("aria-label",lang==="en"?"切换到中文":"Switch to English");setStored("wisehai-language",lang)}
+  languageButton.addEventListener("click",()=>setLanguage(document.documentElement.lang==="en"?"zh":"en"));setLanguage(getStored("wisehai-language")==="en"?"en":"zh");
+  const themeButtons=document.querySelectorAll("[data-theme-choice]");
+  function applyTheme(theme){if(theme==="light"||theme==="dark")document.documentElement.dataset.theme=theme;else document.documentElement.removeAttribute("data-theme");themeButtons.forEach(button=>button.setAttribute("aria-pressed",String(button.dataset.themeChoice===theme)));setStored("wisehai-theme",theme)}
+  themeButtons.forEach(button=>button.addEventListener("click",()=>applyTheme(button.dataset.themeChoice)));applyTheme(getStored("wisehai-theme")||"auto");
+</script>
+</body>
+</html>

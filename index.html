@@ -384,6 +384,38 @@
     flex-wrap: wrap;
   }
 
+  .featured-updates {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+
+  .featured-updates-title {
+    margin: 0 0 10px;
+    color: var(--ink);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .featured-update {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 12px;
+    padding: 6px 0;
+    font-size: 0.88rem;
+  }
+
+  .featured-update time { color: var(--ink-soft); }
+  .featured-update span { color: var(--ink); }
+
+  .updates-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.88rem;
+  }
+
   .btn-primary {
     display: inline-block;
     background: var(--brass);
@@ -461,6 +493,18 @@
         <span class="project-badge" data-i18n="featured.badge">打磨中</span>
       </div>
       <p class="featured-desc" data-i18n="featured.desc"> 电子手碟：支持从 PDF 识谱、文本乐谱可直接编辑、支持存谱和下载，支持变速播放、节拍器。可离线安装成 App 使用，手机端支持多指和弦。 </p>
+      <div class="featured-updates" aria-labelledby="featured-updates-title">
+        <h3 class="featured-updates-title" id="featured-updates-title" data-i18n="featured.updatesTitle">最新进展</h3>
+        <div class="featured-update">
+          <time datetime="2026-07-11">07 · 11</time>
+          <span data-i18n="featured.update.follow">新增麦克风跟谱，演奏时自动跟踪乐谱进度</span>
+        </div>
+        <div class="featured-update">
+          <time datetime="2026-07-10">07 · 10</time>
+          <span data-i18n="featured.update.redesign">升级为 12 音 D Kurd 布局，重做手碟外观与音色</span>
+        </div>
+        <a class="updates-link" href="/handpan-updates/" data-i18n="featured.allUpdates">查看全部进展 →</a>
+      </div>
       <div class="featured-actions">
         <a class="btn-primary" href="https://www.wisehai.com/handpan-project/" target="_blank" rel="noopener" data-i18n="featured.try">试用 →</a>
         <a class="project-link" href="https://github.com/wisehai/handpan-project" target="_blank" rel="noopener" data-i18n="featured.repo">查看仓库</a>
@@ -547,6 +591,10 @@
       "featured.desc": "电子手碟：支持从 PDF 识谱、文本乐谱可直接编辑、支持存谱和下载，支持变速播放、节拍器。可离线安装成 App 使用，手机端支持多指和弦。",
       "featured.try": "试用 →",
       "featured.repo": "查看仓库",
+      "featured.updatesTitle": "最新进展",
+      "featured.update.follow": "新增麦克风跟谱，演奏时自动跟踪乐谱进度",
+      "featured.update.redesign": "升级为 12 音 D Kurd 布局，重做手碟外观与音色",
+      "featured.allUpdates": "查看全部进展 →",
       "about.label": "关于",
       "about.title": "反复折腾的这些年",
       "about.p1": "十年前还在读书的时候，就想有个自己的网站——那样布局和内容都能自己说了算。买过服务器和域名，用 WordPress 模板搭起过一个博客，写写停停，最后总觉得内容像是寄居在别人的模板里，编辑器也用得别扭，渐渐就放下了。",
@@ -581,6 +629,10 @@
       "featured.desc": "A digital handpan: read scores from PDFs, edit text-based scores directly, save and download scores, change playback speed, and use a metronome. It can be installed offline as an app, with multi-finger chords on mobile.",
       "featured.try": "Try it →",
       "featured.repo": "View repository",
+      "featured.updatesTitle": "Latest updates",
+      "featured.update.follow": "Added microphone-powered score following that tracks your playing",
+      "featured.update.redesign": "Upgraded to a 12-note D Kurd layout with a new steel look and timbre",
+      "featured.allUpdates": "View all updates →",
       "about.label": "About",
       "about.title": "Years of starting over",
       "about.p1": "When I was still in school ten years ago, I wanted a website of my own, somewhere the layout and content were both under my control. I bought servers and domains, built a WordPress blog from a template, and wrote on and off. In the end, the content still felt like it was living inside someone else's template, and the editor never felt quite right, so I gradually left it alone.",
